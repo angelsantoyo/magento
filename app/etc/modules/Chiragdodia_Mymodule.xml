@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Chiragdodia_Mymodule>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Chiragdodia_Mymodule>
+    </modules>
+</config>
