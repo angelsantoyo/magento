@@ -1,9 +1,6 @@
 <?php
 class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Action
 {
-    const XML_PATH_EMAIL_RECIPIENT  = 'contacts/email/recipient_email';
-    const XML_PATH_EMAIL_SENDER     = 'contacts/email/sender_email_identity';
-    const XML_PATH_EMAIL_TEMPLATE   = 'contacts/email/email_template';
     const XML_PATH_ENABLED          = 'contacts/contacts/enabled';
 
     public function preDispatch()
@@ -22,15 +19,17 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
 
         $this->loadLayout();
         $this->getLayout()->getBlock('contactForm')
-            ->setFormAction( Mage::getUrl('index.php/mymodule/index/post') );
+            ->setFormAction( Mage::getUrl('*/index/post') );
 
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
 
     }
-    public function insert(){
-        $post = $this->getRequest()->getPost();
+
+    public function insert($post){
+
+        print_r($post);die();
 
         $resource   = Mage::getSingleton('core/resource');
         $write      = Mage::getSingleton('core/resource')->getConnection('core_write');
@@ -53,16 +52,17 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
             'comments'  => $comments
         );
 
+
         $write->query($query,$binds);
 
     }
 
     public function postAction()
     {
-        $this->_redirect('index.php/mymodule/index');
+
         $post = $this->getRequest()->getPost();
 
-        insert();
+        $this->insert($post);
 
         if ( $post ) {
             $translate = Mage::getSingleton('core/translate');
@@ -128,4 +128,9 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
             $this->_redirect('*/*/*/');
         }
     }
+
+    public function testAction(){
+        phpinfo();
+    }
+
 }
