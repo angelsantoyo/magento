@@ -29,27 +29,23 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
 
     public function insert($post){
 
-        print_r($post);die();
-
         $resource   = Mage::getSingleton('core/resource');
         $write      = Mage::getSingleton('core/resource')->getConnection('core_write');
 
-        $table      = $resource->getTableName('contact_details');
-        $subject    = $post['subject'];
+        $table      = $resource->getTableName('chiragdodia_mymodule_comments');
         $name       = $post['name'];
         $email      = $post['email'];
         $telephone  = $post['telephone'];
-        $comments   = $post['comments'];
+        $comments   = $post['comment'];
 
-        $query      =  "Insert Into {$table} (subject,name,email,telephone,comment,modified_at) values (:subject,:name,:email,:telephone,:comments, NOW())";
+        $query      =  "Insert Into {$table} (guest_name,guest_email,guest_phone,guest_comments,guest_created_at) values (:name,:email,:telephone,:comments, NOW())";
 
 
         $binds      =  array(
-            'subject'   => $subject,
             'name'      => $name,
             'email'     => $email,
             'telephone' => $telephone,
-            'comments'  => $comments
+            'comments'  => $comments,
         );
 
 
@@ -92,23 +88,6 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
                 if ($error) {
                     throw new Exception();
                 }
-                $mailTemplate = Mage::getModel('core/email_template');
-                /* @var $mailTemplate Mage_Core_Model_Email_Template */
-                $mailTemplate->setDesignConfig(array('area' => 'frontend'))
-                    ->setReplyTo($post['email'])
-                    ->sendTransactional(
-                        Mage::getStoreConfig(self::XML_PATH_EMAIL_TEMPLATE),
-                        Mage::getStoreConfig(self::XML_PATH_EMAIL_SENDER),
-                        Mage::getStoreConfig(self::XML_PATH_EMAIL_RECIPIENT),
-                        null,
-                        array('data' => $postObject)
-                    );
-
-                if (!$mailTemplate->getSentSuccess()) {
-                    throw new Exception();
-                }
-
-                $translate->setTranslateInline(true);
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
                 $this->_redirect('*/*/*/');

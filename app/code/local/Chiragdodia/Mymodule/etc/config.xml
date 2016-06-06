@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Chiragdodia_Mymodule>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </Chiragdodia_Mymodule>
     </modules>
     <frontend>
@@ -19,36 +19,25 @@
     </frontend>
     <global>
         <models>
-            <contacts>
+            <chiragdodia_mymodule>
                 <class>Chiragdodia_Mymodule_Model</class>
-                <resourceModel>contacts_mysql4</resourceModel>
-            </contacts>
-            <contacts_mysql4>
-                <class>Chiragdodia_Mymodule_Model_Mysql4</class>
+                <resourceModel>chiragdodia_mymodule_resource</resourceModel>
+            </chiragdodia_mymodule>
+            <chiragdodia_mymodule_resource>
+                <class>Chiragdodia_Mymodule_Model_Resource</class>
                 <entities>
-                    <contacts>
-                        <table>contact_details</table>
-                    </contacts>
+                    <comment>
+                        <table>chiragdodia_mymodule_comments</table>
+                    </comment>
                 </entities>
-            </contacts_mysql4>
+            </chiragdodia_mymodule_resource>
         </models>
         <resources>
-            <contacts_setup>
+            <chiragdodia_mymodule_setup>
                 <setup>
                     <module>Chiragdodia_Mymodule</module>
                 </setup>
-            </contacts_setup>
-            <contacts_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </contacts_read>
-
-            <contacts_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </contacts_write>
+            </chiragdodia_mymodule_setup>
         </resources>
     </global>
 
