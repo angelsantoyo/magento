@@ -32,24 +32,34 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
         $resource   = Mage::getSingleton('core/resource');
         $write      = Mage::getSingleton('core/resource')->getConnection('core_write');
 
-        $table      = $resource->getTableName('chiragdodia_mymodule_comments');
+//        $table      = $resource->getTableName('chiragdodia_mymodule_comments');
         $name       = $post['name'];
         $email      = $post['email'];
         $telephone  = $post['telephone'];
         $comments   = $post['comment'];
 
-        $query      =  "Insert Into {$table} (guest_name,guest_email,guest_phone,guest_comments,guest_created_at) values (:name,:email,:telephone,:comments, NOW())";
+//        $query      =  "Insert Into {$table} (guest_name,guest_email,guest_phone,guest_comments,guest_created_at) values (:name,:email,:telephone,:comments, NOW())";
+//        $binds      =  array(
+//            'name'      => $name,
+//            'email'     => $email,
+//            'telephone' => $telephone,
+//            'comments'  => $comments,
+//        );
+//
+//
+//        $write->query($query,$binds);
+//        if(isset($name)&&($name!='') && isset($email)&&($email!='')
+//            && isset($comments)&&($comments!='') )
+//        {
+            $commentsModel = Mage::getModel('chiragdodia_mymodule/comment');
+            $commentsModel->setData('guest_name', $name)
+                ->setGuestEmail($email)
+                ->setData('guest_phone', $telephone)
+                ->setData('guest_comments', $comments)
+                ->setData('guest_created_at', date('Y-m-d h:m:s'));
+            $commentsModel->save();
+//        }
 
-
-        $binds      =  array(
-            'name'      => $name,
-            'email'     => $email,
-            'telephone' => $telephone,
-            'comments'  => $comments,
-        );
-
-
-        $write->query($query,$binds);
 
     }
 
@@ -90,7 +100,7 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
                 }
 
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('contacts')->__('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
-                $this->_redirect('*/*/*/');
+                $this->_redirect('*/index/');
 
                 return;
             } catch (Exception $e) {
@@ -104,7 +114,7 @@ class Chiragdodia_Mymodule_IndexController extends Mage_Core_Controller_Front_Ac
             }
 
         } else {
-            $this->_redirect('*/*/*/');
+            $this->_redirect('*/*/');
         }
     }
 

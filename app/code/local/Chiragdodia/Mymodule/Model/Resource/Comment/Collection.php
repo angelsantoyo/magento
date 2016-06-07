@@ -3,6 +3,6 @@ class Chiragdodia_Mymodule_Model_Resource_Comment_Collection extends Mage_Core_M
 {
     public function _construct()
     {
-        $this->_init('chiragdodia_mymodule/comments');
+        $this->_init('chiragdodia_mymodule/comment');
     }
 }
