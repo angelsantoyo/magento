@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Foo_Bar>
+            <version>0.1.1.0</version>
+        </Foo_Bar>
+    </modules>
+
+    <global>
+        <helpers>
+            <foo_bar>
+                <class>Foo_Bar_Helper</class>
+            </foo_bar>
+        </helpers>
+
+        <blocks>
+            <foo_bar>
+                <class>Foo_Bar_Block</class>
+            </foo_bar>
+        </blocks>
+
+        <models>
+            <foo_bar>
+                <class>Foo_Bar_Model</class>
+                <resourceModel>foo_bar_resource</resourceModel>
+            </foo_bar>
+            <foo_bar_resource>
+                <class>Foo_Bar_Model_Resource</class>
+                <entities>
+                    <baz>
+                        <table>chiragdodia_mymodule_comments</table>
+                    </baz>
+                </entities>
+            </foo_bar_resource>
+        </models>
+
+        <resources>
+            <foo_bar_setup>
+                <setup>
+                    <module>Foo_Bar</module>
+                </setup>
+            </foo_bar_setup>
+        </resources>
+    </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <!-- This is how we load our Adminhtml controllers -->
+                    <modules>
+                        <Foo_Bar before="Mage_Adminhtml">Foo_Bar_Adminhtml</Foo_Bar>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <foo_bar>
+                    <!--
+                    We again keep a nice naming convention and make our module upgrade proof by placing it in a separate folder
+                    - Since we are in the adminhtml node, this will look for the XML file in the app/design/adminhtml/default/default root folder
+                    -->
+                    <file>foo_bar.xml</file>
+                </foo_bar>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
