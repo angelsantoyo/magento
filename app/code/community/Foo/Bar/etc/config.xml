@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Foo_Bar>
-            <version>0.1.1.0</version>
+            <version>0.1.1.4</version>
         </Foo_Bar>
     </modules>
 
